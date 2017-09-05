@@ -14,7 +14,7 @@ class BaseConfig(object):
 
 class DevelopmentConfig(BaseConfig):
     """ 开发环境配置 """
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/development.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///D:/wetalk/development.db'
 
 
 class ProductionConfig(BaseConfig):
@@ -25,7 +25,7 @@ class ProductionConfig(BaseConfig):
 class TestingConfig(BaseConfig):
     """ 测试环境配置 """
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/testing.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///D:/wetalk/testing.db'
 
 
 configs = {

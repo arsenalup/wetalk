@@ -5,9 +5,14 @@
 
     :copyright: (c) 2017 by protream.
 """
+from wtforms.fields import StringField, PasswordField
+from wtforms.validators import Length, Email
+from wetalk.models import db, User
+
 from flask import request
 from werkzeug.datastructures import MultiDict
 from flask_wtf import FlaskForm
+
 
 
 class Form(FlaskForm):
@@ -24,3 +29,9 @@ class Form(FlaskForm):
         formdata = MultiDict(request.get_json())
         form = cls(formdata=formdata, obj=obj, csrf_enabled=False)
         return form
+
+
+class RegisterForm(Form):
+    username = StringField(validators=[
+        
+    ])
