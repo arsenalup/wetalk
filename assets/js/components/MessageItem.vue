@@ -18,7 +18,6 @@
 <script>
 import Avatar from './Avatar.vue';
 import moment from 'moment'
-
 export default {
   props: ['message'],
   filters: {
@@ -40,7 +39,6 @@ export default {
   padding-bottom: 10px;
   list-style-type: none;
 }
-
 .message-item .message-info {
   position: relative;
   font-size: 13px;
@@ -48,11 +46,9 @@ export default {
   margin-bottom: 10px;
   line-height: 1;
 }
-
 .message-item .message-main {
   overflow: hidden;
 }
-
 .message-item .message-time {
   position: absolute;
   right: 0;
@@ -60,13 +56,11 @@ export default {
   font-size: 13px;
   transition: all .2s ease;
 }
-
 .message-item .message-text {
   line-height: 1.4;
   font-size: 16px;
   margin-bottom: 10px;
 }
-
 .avatar {
   float: left;
   margin-right: 12px;

@@ -1,3 +1,9 @@
+"""
+    wetalk.models.user
+    ~~~~~~~~~~~~~~~~~~
+
+    :copyright: (c) 2017 by protream.
+"""
 from sqlalchemy import Column, Integer, String
 from werkzeug.security import generate_password_hash, check_password_hash
 from .base import Base
@@ -26,6 +32,6 @@ class User(Base):
         return check_password_hash(self._password, orig_password)
 
     def to_dict(self):
-        return {'id':self.id,
-                'email':self.email,
-                'username':self.username}
+        return {'id': self.id,
+                'email': self.email,
+                'username': self.username}

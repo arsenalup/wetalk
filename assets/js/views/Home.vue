@@ -5,6 +5,7 @@
         <p>忙里偷闲，扯下蛋去；苦中作乐，灌个水来</p>
       </div>
     </div>
+
     <div class="container app__container">
       <div class="home__toolbar">
         <div class="dropdown">
@@ -12,48 +13,50 @@
             <span class="glyphicon glyphicon-th" aria-hidden="true"></span> 全部话题
             <span class="caret"></span>
           </button>
-          <button class="btn btn-default btn-sm" type="button">
+          <router-link to="/p/create" class="btn btn-default btn-sm" type="button">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 发布帖子
-          </button>
+          </router-link>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">数码</a></li>
-            <li><a href="#">编程</a></li>
-            <li><a href="#">旅游</a></li>
+            <li v-for="topic in topics"><a href="#">{{ topic.name }}</a></li>
           </ul>
         </div>
       </div>
-      <div class="home__post-list">
-        <post-item v-for="post in posts" :post="post"></post-item>
-        <div class="home__loadmore">Load More</div>
+
+        <div class="home__post-list">
+          <post-item v-for="post in posts" :post="post"></post-item>
+          <div class="home__loadmore">Load More</div>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
   import PostItem from '../components/PostItem.vue'
-
   export default {
-      data() {
-          return {
-              posts: [
-                { author: { name: 'Protream' }, title: 'Cras sit amet nibh libero' },
-                { author: { name: 'Tome' }, title: 'Cras sit amet nibh libero' },
-                { author: { name: 'Jack' }, title: 'Cras sit amet nibh libero' },
-                { author: { name: 'Lucy' }, title: 'Cras sit amet nibh libero' },
-                { author: { name: 'Alex' }, title: 'Cras sit amet nibh libero' },
-                { author: { name: 'Bob' }, title: 'Cras sit amet nibh libero' },
-                { author: { name: 'Mike' }, title: 'Cras sit amet nibh libero' },
-                { author: { name: 'Rose' }, title: 'Cras sit amet nibh libero' },
-                { author: { name: 'cady' }, title: 'Cras sit amet nibh libero' },
-                { author: { name: 'Jane' }, title: 'Cras sit amet nibh libero' },
-              ]
-          }
-      },
-
-      components: {
-          PostItem
+    data() {
+      return {
+        posts: [
+          { author: { name: 'Protream' }, title: 'Cras sit amet nibh libero' },
+          { author: { name: 'Tome' }, title: 'Cras sit amet nibh libero' },
+          { author: { name: 'Jack' }, title: 'Cras sit amet nibh libero' },
+          { author: { name: 'Lucy' }, title: 'Cras sit amet nibh libero' },
+          { author: { name: 'Alex' }, title: 'Cras sit amet nibh libero' },
+          { author: { name: 'Bob' }, title: 'Cras sit amet nibh libero' },
+          { author: { name: 'Mike' }, title: 'Cras sit amet nibh libero' },
+          { author: { name: 'Rose' }, title: 'Cras sit amet nibh libero' },
+          { author: { name: 'cady' }, title: 'Cras sit amet nibh libero' },
+          { author: { name: 'Jane' }, title: 'Cras sit amet nibh libero' },
+        ]
       }
+    },
+    computed: {
+      topics() {
+          return this.$store.state.topics
+      }
+    },
+    components: {
+      PostItem
+    }
   }
 </script>
 

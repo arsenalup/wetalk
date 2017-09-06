@@ -1,4 +1,5 @@
 <template>
+  <!-- 使用了 Bootstrap 中的 media 组件 -->
   <div class="media post">
     <div class="media-left">
       <a href="#">
@@ -7,23 +8,22 @@
     </div>
     <div class="media-body">
       <h4 class="media-heading" v-text="post.title"></h4>
-      <div class="post_meta">1 minutes ago</div>
+      <div class="post__meta">1 minutes ago</div>
     </div>
   </div>
 </template>
 
 <script>
   import Avatar from './Avatar.vue'
-
   export default {
-      props: ['post'],
-      data() {
-        return {
-        }
-      },
-      components: {
-        Avatar
+    props: ['post'],
+    data() {
+      return {
       }
+    },
+    components: {
+      Avatar
+    }
   }
 </script>
 

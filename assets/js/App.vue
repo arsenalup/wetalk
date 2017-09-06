@@ -23,8 +23,8 @@
               <ul class="dropdown-menu">
                 <li><a href="#">我的主页</a></li>
                 <li><a href="#">个人设置</a></li>
-                 <li role="separator" class="divider"></li>
-                <li><router-link to="/">退出登录</router-link></li>
+                <li role="separator" class="divider"></li>
+                <li><a @click="logout">退出登录</a></li>
               </ul>
             </li>
           </ul>
@@ -38,7 +38,7 @@
      </div>
     </div>
     <login-form v-if="$store.state.loginForm"></login-form>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -49,6 +49,18 @@
       Avatar,
       LoginForm
     },
+    methods: {
+      logout() {
+        http.delete('api/user/session')
+          .then(({ data }) => this.$store.commit('recordMe', { me: data }))
+      }
+    },
+    created() {
+      http.get('/api/user/me')
+        .then(({ data }) => this.$store.commit('recordMe', { me: data }))
+      http.get('/api/topics')
+        .then(({ data }) => this.$store.commit('setTopics', { topics: data }))
+    }
   }
 </script>
 
