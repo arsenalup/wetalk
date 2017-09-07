@@ -35,27 +35,22 @@
   export default {
     data() {
       return {
-        posts: [
-          { author: { name: 'Protream' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Tome' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Jack' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Lucy' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Alex' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Bob' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Mike' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Rose' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'cady' }, title: 'Cras sit amet nibh libero' },
-          { author: { name: 'Jane' }, title: 'Cras sit amet nibh libero' },
-        ]
       }
     },
     computed: {
       topics() {
           return this.$store.state.topics
+      },
+      posts() {
+          return this.$store.state.posts
       }
     },
     components: {
       PostItem
+    },
+    created() {
+        http.get('/api/posts')
+          .then(({ data }) => this.$store.commit('addPosts', { posts:data }))
     }
   }
 </script>

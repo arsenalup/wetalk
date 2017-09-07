@@ -5,15 +5,16 @@
         <input type="text" placeholder="标题" class="post-title" v-model="form.title">
       </div>
       <div class="form-group post-topic">
-        <select v-model="form.topic_name"><option v-for="topic in topics">{{ topic.name }}</option> </select>
+        <select v-model="form.topic_name"><option v-for="topic in topics">{{ topic.name }}</option></select>
       </div>
-      <div class="from-group">
-        <textarea rows="25" placeholder="想说些什么..." v-model="form.content"></textarea>
+      <div class="form-group">
+        <textarea rows="25" placeholder="想说些什么..." v-model="form.content" v-if="!isPreview"></textarea>
+        <div class="yue preview" v-html="markedContent" v-if="isPreview"></div>
       </div>
       <div class="btn-group btn-group-justified" role="group">
-        <div class="btn-group" role="group">
-          <button type="submit" class="btn btn-default">预览</button>
-        </div>
+       <div class="btn-group" role="group">
+         <button type="submit" class="btn btn-default" @click.prevent="isPreview=!isPreview">{{ isPreview ? '继续编辑' : '预览'  }}</button>
+       </div>
         <div class="btn-group" role="group">
           <button type="submit" class="btn btn-default" @click.prevent="submit">发布</button>
         </div>
@@ -23,21 +24,34 @@
 </template>
 
 <script>
+  import marked from 'marked'
   export default {
-      data() {
-          return {
-              form: new Form({
-                  title: '',
-                  content: '',
-                  topic_name: ''
-              })
-          }
-      },
-      computed: {
-          topics() {
-              return this.$store.state.topics
-          }
+    data() {
+      return {
+        isPreview: false,
+        form: new Form({
+          title: '',
+          content: '',
+          topic_name: ''
+        })
       }
+    },
+    methods: {
+      submit() {
+        this.form.post('/api/posts')
+          .then(data => {
+            this.$router.push('/')
+          })
+      }
+    },
+    computed: {
+      topics() {
+        return this.$store.state.topics
+      },
+      markedContent() {
+        return marked(this.form.content, { sanitize: true })
+      }
+    }
   }
 </script>
 
