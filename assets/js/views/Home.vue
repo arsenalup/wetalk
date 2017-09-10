@@ -24,7 +24,8 @@
 
         <div class="home__post-list">
           <post-item v-for="post in posts" :post="post"></post-item>
-          <div class="home__loadmore">Load More</div>
+          <div class="home__loading" v-if="loading">加载中......</div>
+          <div class="home__loadmore" v-if="!loading && offset" @click="loadPosts">Load More</div>
         </div>
       </div>
     </div>
@@ -35,6 +36,9 @@
   export default {
     data() {
       return {
+          loading: false,
+          offset: 0,
+          hasMore: true
       }
     },
     computed: {
@@ -45,12 +49,20 @@
           return this.$store.state.posts
       }
     },
+    methods: {
+      loadPosts() {
+          http.get('/api/posts', { params: { offset: this.offset } })
+            .then(({  data }) => {
+              this.$store.commit('addPosts', { posts: data.data })
+              this.offset = data.offset
+            })
+      }
+    },
     components: {
       PostItem
     },
     created() {
-        http.get('/api/posts')
-          .then(({ data }) => this.$store.commit('addPosts', { posts:data }))
+        this.loadPosts()
     }
   }
 </script>

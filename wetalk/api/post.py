@@ -3,6 +3,7 @@ from wetalk.models import Post
 from wetalk.forms import PostForm
 from . import api
 
+
 @api.route('/posts', methods=['POST'])
 def create_post():
     if not session.get('id', ''):
@@ -16,5 +17,13 @@ def create_post():
 
 @api.route('/posts', methods=['GET'])
 def get_posts():
-    posts = Post.query.order_by(Post.created_at.desc())
-    return jsonify([post.to_dict() for post in posts])
+    offset = request.args.get('offset', 0, type=int)
+    limit = 10
+    q = Post.query.order_by(Post.created_at.desc())
+    posts = q.offset(offset).limit(limit)
+    data = [post.to_dict() for post in posts]
+    if len(data) < limit:
+        offset = 0
+    else:
+        offset = offset + limit
+    return jsonify(data=data, offset=offset)

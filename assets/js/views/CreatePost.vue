@@ -40,6 +40,7 @@
       submit() {
         this.form.post('/api/posts')
           .then(data => {
+            this.$store.commit('addPost', { post: data })
             this.$router.push('/')
           })
       }

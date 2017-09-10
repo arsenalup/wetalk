@@ -7,7 +7,7 @@
       </a>
     </div>
     <div class="media-body">
-      <div class="media-heading">{{ post.title }}</div>
+      <router-link class="media-heading" :to="'/p/' + post.id">{{ post.title }}</router-link>
       <!-- 增加显示了帖子的 topic 和 username，并为每个生成不同的背景色 -->
        <div class="post__meta">
        <span class="label post__topic" :style="{background: topicBackground}">{{ post.topic.name}}</span>
@@ -61,5 +61,10 @@
     padding: 0 .2em;
     font-weight: normal;
     margin-right: .5em;
+  }
+  .media-body > a {
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
   }
 </style>
