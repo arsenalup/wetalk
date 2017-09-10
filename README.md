@@ -1,2 +1,3 @@
 # wetalk
 Flask和VueJS的论坛应用...
+![Markdown](http://i1.bvimg.com/605596/3b48d89671a01a13.png)
