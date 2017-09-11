@@ -9,16 +9,14 @@
     <div class="media-body">
       <router-link class="media-heading" :to="'/p/' + post.id">{{ post.title }}</router-link>
       <!-- 增加显示了帖子的 topic 和 username，并为每个生成不同的背景色 -->
-       <div class="post__meta">
-       <span class="label post__topic" :style="{background: topicBackground}">{{ post.topic.name}}</span>
-        {{ post.created_at | fromNow }} By {{ post.user.username }}
-      </div>
+      <post-meta :post="post"></post-meta>
     </div>
   </div>
 </template>
 
 <script>
   import Avatar from './Avatar.vue'
+  import PostMeta from './PostMeta.vue'
   import wc from 'word-color'
   import moment from 'moment'
 
@@ -35,7 +33,8 @@
       }
     },
     components: {
-      Avatar
+      Avatar,
+      PostMeta
     },
     filters: {
        // 帖子的发布时间显示为 from now 格式
@@ -52,15 +51,6 @@
     padding: 15px 10px;
     border: 1px solid #eee;
     border-radius: 3px;
-  }
-  .post__meta {
-    color: #999;
-    font-size: 12px;
-  }
-  .post__topic {
-    padding: 0 .2em;
-    font-weight: normal;
-    margin-right: .5em;
   }
   .media-body > a {
     color: #333;
